@@ -1,8 +1,8 @@
 {
     "app-id": "com.github.arshubham.gitignore",
     "runtime": "io.elementary.Platform",
-	"runtime-version": '6',
-	"sdk": "io.elementary.Sdk",
+    "runtime-version": "6",
+    "sdk": "io.elementary.Sdk",
     "command": "com.github.arshubham.gitignore",
     "finish-args": [
         "--share=ipc",
