@@ -1,10 +1,10 @@
 {
     "app-id": "com.github.arshubham.gitignore",
-    "runtime": "org.gnome.Platform",
-    "runtime-version" : "40",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version" : "23.08",
     "base" : "io.elementary.BaseApp",
-    "base-version" : "juno-20.08",
-    "sdk": "org.gnome.Sdk",
+    "base-version" : "juno-23.08",
+    "sdk": "org.freedesktop.Sdk",
     "command": "com.github.arshubham.gitignore",
     "finish-args": [
         "--share=ipc",
