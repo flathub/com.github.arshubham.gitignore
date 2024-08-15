@@ -28,13 +28,16 @@
         {
             "name": "Gitignore",
             "buildsystem": "meson",
-            "config-opts": ["-Dlibunity=false", "-Dubuntu-bionic-patched-vte=false"],
             "sources": [
                 {
                     "type" : "git",
                     "url" : "https://github.com/arshubham/gitignore.git",
                     "commit" : "92701a6d86a8b73a04e82102001c3990e1a364e2"
                 }
+            ],
+            "post-install" : [
+                "mkdir -p /app/share/icons/hicolor/scalable/apps && mv /app/share/icons/hicolor/128x128/apps/${FLATPAK_ID}.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg",
+                "find /app/share/icons/hicolor -type f -not -path \"*scalable*\" -not -path \"*actions*\" -name \"*.svg\" -delete"
             ]
         }
     ]
