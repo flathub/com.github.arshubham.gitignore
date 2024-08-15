@@ -14,6 +14,7 @@
         "--share=network"
     ],
     "modules": [
+        "shared-modules/libsoup/libsoup-2.4.json",
         {
 			"name": "gtksourceview-3.0",
 			"sources": [
