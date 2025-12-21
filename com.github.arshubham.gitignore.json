@@ -1,10 +1,18 @@
 {
     "app-id": "com.github.arshubham.gitignore",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version" : "23.08",
+    "runtime-version" : "25.08",
     "base" : "io.elementary.BaseApp",
-    "base-version" : "juno-23.08",
+    "base-version" : "circe-25.08",
     "sdk": "org.freedesktop.Sdk",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.vala"
+    ],
+    "build-options": {
+        "prepend-path": "/usr/lib/sdk/vala/bin/",
+        "prepend-ld-library-path": "/usr/lib/sdk/vala/lib",
+        "prepend-pkg-config-path": "/usr/lib/sdk/vala/lib/pkgconfig"
+    },
     "command": "com.github.arshubham.gitignore",
     "finish-args": [
         "--share=ipc",
@@ -16,15 +24,28 @@
     "modules": [
         "shared-modules/libsoup/libsoup-2.4.json",
         {
-			"name": "gtksourceview-3.0",
-			"sources": [
-				{
-					"type": "archive",
-					"url": "https://download.gnome.org/sources/gtksourceview/3.24/gtksourceview-3.24.9.tar.xz",
-					"sha256": "699d76a453e6a3d3331906346e3dbfa25f2cbc9ec090e46635e9c6bb595e07c2"
-				}
-			]
-		},
+            "name": "libgee",
+            "make-install-args": [
+                "girdir=/app/share/gir-1.0",
+                "typelibdir=/app/lib/girepository-1.0"
+            ],
+            "sources": [{
+                "type": "archive",
+                "url": "https://download.gnome.org/sources/libgee/0.20/libgee-0.20.8.tar.xz",
+                "sha256": "189815ac143d89867193b0c52b7dc31f3aa108a15f04d6b5dca2b6adfad0b0ee"
+            }]
+        },
+        {
+            "name": "gtksourceview-4",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                "type": "archive",
+                "url": "https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.4.tar.xz",
+                "sha256": "7ec9d18fb283d1f84a3a3eff3b7a72b09a10c9c006597b3fbabbb5958420a87d"
+                }
+            ]
+        },
         {
             "name": "Gitignore",
             "buildsystem": "meson",
@@ -36,11 +57,15 @@
                 },
                 {
                     "type" : "patch",
-                    "path" : "fix-appdata.patch"
+                    "paths" : [
+                        "fix-appdata.patch",
+                        "fix-gtksourceview.patch"
+                    ]
                 }
             ],
             "post-install" : [
-                "mkdir -p /app/share/icons/hicolor/scalable/apps && mv /app/share/icons/hicolor/128x128/apps/${FLATPAK_ID}.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg",
+                "mkdir -p /app/share/icons/hicolor/scalable/apps",
+                "mv /app/share/icons/hicolor/128x128/apps/${FLATPAK_ID}.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg",
                 "find /app/share/icons/hicolor -type f -not -path \"*scalable*\" -not -path \"*actions*\" -name \"*.svg\" -delete"
             ]
         }
